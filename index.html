@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f1419;
+            color: #e6e6e6;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #2a2f3a;
+            position: relative;
+        }
+
+        .header-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .left-nav {
+            display: flex;
+        }
+
+        .auth-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-link {
+            padding: 0.5rem 1rem;
+            color: #8892b0;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .auth-link:hover {
+            color: #ffffff;
+            background: #2a2f3a;
+        }
+
+        .auth-link.primary {
+            background: #64ffda;
+            color: #0f1419;
+        }
+
+        .auth-link.primary:hover {
+            background: #4fd1c7;
+            color: #0f1419;
+        }
+
+        .og-pill {
+            font-size: 1rem;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8892b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #1d2330;
+            border: 1px solid #2a2f3a;
+            border-radius: 8px;
+            color: #e6e6e6;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-box:focus {
+            border-color: #64ffda;
+        }
+
+        .search-box::placeholder {
+            color: #8892b0;
+        }
+
+        .popular-guides {
+            max-width: 1200px;
+            margin: 2rem auto 3rem auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .popular-guides-header {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .guide-pills {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .guide-pill {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #2a2f3a;
+            color: #e6e6e6;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid #2a2f3a;
+            white-space: nowrap;
+        }
+
+        .guide-pill:hover {
+            background: #64ffda;
+            color: #0f1419;
+            border-color: #64ffda;
+            transform: translateY(-1px);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: #1d2330;
+            border: 1px solid #2a2f3a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            border-color: #64ffda;
+            transform: translateY(-2px);
+        }
+
+        .resource-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: #2a2f3a;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .resource-description {
+            color: #8892b0;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .resource-links {
+            list-style: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card.expanded .resource-links {
+            opacity: 1;
+            max-height: 300px;
+            margin-top: 1rem;
+        }
+
+        .resource-links li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #2a2f3a;
+        }
+
+        .resource-links li:last-child {
+            border-bottom: none;
+        }
+
+        .resource-links a {
+            color: #64ffda;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-links a:hover {
+            color: #ffffff;
+        }
+
+        .expand-indicator {
+            margin-left: auto;
+            color: #8892b0;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card.expanded .expand-indicator {
+            transform: rotate(180deg);
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .coming-soon .resource-title::after {
+            content: " (Coming Soon)";
+            font-size: 0.8rem;
+            color: #8892b0;
+            font-weight: 400;
+        }
+
+        .quick-links {
+            background: #1d2330;
+            border: 1px solid #2a2f3a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .quick-links h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .quick-link {
+            display: block;
+            padding: 0.75rem;
+            background: #2a2f3a;
+            color: #e6e6e6;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .quick-link:hover {
+            background: #64ffda;
+            color: #0f1419;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #2a2f3a;
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-nav {
+                position: static;
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                align-items: center;
+            }
+
+            .left-nav {
+                order: 1;
+            }
+
+            .auth-nav {
+                order: 2;
+                justify-content: center;
+            }
+
+            .popular-guides {
+                padding: 0 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .guide-pills {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .guide-pill {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-nav">
+                <div class="left-nav">
+                    <a href="signup.html?school=uofsc" class="auth-link primary og-pill">For the OG's</a>
+                </div>
+                <div class="auth-nav">
+                    <a href="login.html" class="auth-link">Sign In</a>
+                    <a href="signup.html" class="auth-link primary">Sign Up</a>
+                </div>
+            </div>
+            
+            <h1>Research Junkie</h1>
+            <p class="subtitle">Practical resources for medical students learning research skills</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search topics..." id="searchInput">
+            </div>
+        </header>
+
+        <div class="popular-guides">
+            <h3 class="popular-guides-header">Popular Guides:</h3>
+            <div class="guide-pills">
+                <a href="#" class="guide-pill">Citations (Zotero setup)</a>
+                <a href="#" class="guide-pill">Pubmed search 101</a>
+                <a href="#" class="guide-pill">10 minute Lit Review</a>
+            </div>
+        </div>
+
+        <div class="resources-grid">
+            <div class="resource-card" data-category="literature">
+                <div class="resource-header">
+                    <div class="resource-icon">📚</div>
+                    <h3 class="resource-title">Literature Search & Review</h3>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <p class="resource-description">How to find, evaluate, and synthesize research literature effectively</p>
+                <ul class="resource-links">
+                    <li><a href="#">PubMed Advanced Search Guide</a></li>
+                    <li><a href="#">MEDLINE vs EMBASE: When to Use Which</a></li>
+                    <li><a href="#">Critical Appraisal Checklists</a></li>
+                    <li><a href="#">Reference Management Setup (Zotero)</a></li>
+                    <li><a href="#">Systematic Review Basics</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card" data-category="methodology">
+                <div class="resource-header">
+                    <div class="resource-icon">🔬</div>
+                    <h3 class="resource-title">Study Design & Methodology</h3>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <p class="resource-description">Understanding different research approaches and designing robust studies</p>
+                <ul class="resource-links">
+                    <li><a href="#">Study Design Decision Tree</a></li>
+                    <li><a href="#">Observational vs Experimental Studies</a></li>
+                    <li><a href="#">Sample Size Calculation Basics</a></li>
+                    <li><a href="#">Common Sources of Bias</a></li>
+                    <li><a href="#">Research Protocol Template</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card" data-category="statistics">
+                <div class="resource-header">
+                    <div class="resource-icon">📊</div>
+                    <h3 class="resource-title">Biostatistics</h3>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <p class="resource-description">Statistical concepts and analysis methods for medical research</p>
+                <ul class="resource-links">
+                    <li><a href="#">Which Statistical Test to Use</a></li>
+                    <li><a href="#">Understanding P-values and Confidence Intervals</a></li>
+                    <li><a href="#">Power Analysis Explained</a></li>
+                    <li><a href="#">Introduction to R for Medical Research</a></li>
+                    <li><a href="#">Common Statistical Mistakes</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card coming-soon" data-category="ethics">
+                <div class="resource-header">
+                    <div class="resource-icon">⚖️</div>
+                    <h3 class="resource-title">Research Ethics & IRB</h3>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <p class="resource-description">Navigating institutional review boards and research ethics requirements</p>
+                <ul class="resource-links">
+                    <li><a href="#">IRB Application Process</a></li>
+                    <li><a href="#">Informed Consent Best Practices</a></li>
+                    <li><a href="#">HIPAA and Data Privacy</a></li>
+                    <li><a href="#">Working with Vulnerable Populations</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card coming-soon" data-category="writing">
+                <div class="resource-header">
+                    <div class="resource-icon">✍️</div>
+                    <h3 class="resource-title">Scientific Writing</h3>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <p class="resource-description">Writing research papers, abstracts, and grant proposals</p>
+                <ul class="resource-links">
+                    <li><a href="#">Research Paper Structure (IMRAD)</a></li>
+                    <li><a href="#">How to Choose the Right Journal</a></li>
+                    <li><a href="#">Abstract Writing Guide</a></li>
+                    <li><a href="#">Grant Writing Basics</a></li>
+                    <li><a href="#">Responding to Peer Review</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card coming-soon" data-category="tools">
+                <div class="resource-header">
+                    <div class="resource-icon">🛠️</div>
+                    <h3 class="resource-title">Research Tools</h3>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <p class="resource-description">Software and digital tools for research data collection and analysis</p>
+                <ul class="resource-links">
+                    <li><a href="#">REDCap Database Setup</a></li>
+                    <li><a href="#">Survey Design Best Practices</a></li>
+                    <li><a href="#">Data Visualization Tools</a></li>
+                    <li><a href="#">Project Management for Research</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h3>Useful Links</h3>
+            <div class="links-grid">
+                <a href="https://pubmed.ncbi.nlm.nih.gov" class="quick-link" target="_blank">PubMed</a>
+                <a href="https://www.cochranelibrary.com" class="quick-link" target="_blank">Cochrane Library</a>
+                <a href="https://clinicaltrials.gov" class="quick-link" target="_blank">ClinicalTrials.gov</a>
+                <a href="https://www.zotero.org" class="quick-link" target="_blank">Zotero</a>
+                <a href="https://www.project-redcap.org" class="quick-link" target="_blank">REDCap</a>
+                <a href="https://www.r-project.org" class="quick-link" target="_blank">R Statistical Software</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>A practical guide for medical students learning research. Built by researchers, for researchers.</p>
+        </footer>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

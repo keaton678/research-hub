@@ -1,0 +1,25 @@
+{
+  "name": "research-hub",
+  "version": "1.0.0",
+  "description": "A comprehensive platform helping medical students master research skills they wish they'd learned from day one. Rebranded from \"Medical Research Guide\" to **Research Junkie** for a more engaging, modern identity.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keaton678/research-hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/keaton678/research-hub/issues"
+  },
+  "homepage": "https://github.com/keaton678/research-hub#readme",
+  "dependencies": {
+    "next": "^15.5.0",
+    "react-dom": "^19.1.1"
+  }
+}

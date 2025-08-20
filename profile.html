@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Research Junkie</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f1419;
+            color: #e6e6e6;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-link {
+            color: #64ffda;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #4fd1c7;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #2a2f3a;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8892b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-card {
+            background: #1a1f2e;
+            border: 1px solid #2a2f3a;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: #64ffda;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #2a2f3a;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #8892b0;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #e6e6e6;
+            font-weight: 600;
+        }
+
+        .badge {
+            background: #64ffda;
+            color: #0f1419;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge.unverified {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: #112240;
+            border: 1px solid #2a2f3a;
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #64ffda;
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #64ffda;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #8892b0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: #64ffda;
+            color: #0f1419;
+        }
+
+        .btn-primary:hover {
+            background: #4fd1c7;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #64ffda;
+            border: 1px solid #64ffda;
+        }
+
+        .btn-secondary:hover {
+            background: #64ffda;
+            color: #0f1419;
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
+        .btn-danger:hover {
+            background: #ff6b6b;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .info-value {
+                align-self: flex-end;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Research Junkie</a>
+        
+        <header>
+            <h1 id="profileName">Your Account</h1>
+            <p class="subtitle">Manage your Research Junkie account and preferences</p>
+        </header>
+
+        <div class="profile-grid">
+            <!-- Account Information -->
+            <div class="profile-card">
+                <h2 class="card-title">👤 Account Information</h2>
+                <div class="info-item">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value" id="fullName">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <span class="info-value" id="email">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Institution</span>
+                    <span class="info-value" id="institution">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Member Since</span>
+                    <span class="info-value" id="memberSince">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email Status</span>
+                    <span class="info-value">
+                        <span class="badge" id="emailStatus">Verified</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Account Stats -->
+            <div class="profile-card">
+                <h2 class="card-title">📊 Your Activity</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="guidesViewed">0</span>
+                        <div class="stat-label">Guides Viewed</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="resourcesAccessed">0</span>
+                        <div class="stat-label">Resources Used</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="daysActive">0</span>
+                        <div class="stat-label">Days Active</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Actions -->
+            <div class="profile-card">
+                <h2 class="card-title">⚙️ Account Actions</h2>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>
+                    <button class="btn btn-secondary" onclick="changePassword()">Change Password</button>
+                    <button class="btn btn-secondary" onclick="downloadData()">Download Data</button>
+                    <button class="btn btn-danger" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>
